@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   getc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 16:44:20 by sbaba             #+#    #+#             */
-/*   Updated: 2024/11/20 19:21:36 by sbaba            ###   ########.fr       */
+/*   Created: 2024/11/19 18:04:44 by sbaba             #+#    #+#             */
+/*   Updated: 2024/11/20 19:20:51 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "get_next_line.h"
 
-# include <stdlib.h>
-# include <unistd.h>
+int getchar(int fd)
+{
+    static char buf[BUFFER_SIZE];
+    static char *bufp;
+    static int  n;
 
-# define BUFFER_SIZE 1024
-# define EOF -1
-
-char    *get_next_line(int fd);
-
-#endif
+    n = 0;
+    if (0 == n)
+    {
+        n = read(0, buf, BUFFER_SIZE);
+        bufp = buf;
+    }
+    if (0 <= n--)
+        return (unsigned char) *bufp++;
+    else
+        return (EOF);
+}
