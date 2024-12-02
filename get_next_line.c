@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:41:51 by sbaba             #+#    #+#             */
-/*   Updated: 2024/12/02 16:59:08 by sbaba            ###   ########.fr       */
+/*   Updated: 2024/12/02 17:15:39 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char    *get_next_line(int fd)
         if (buff_size == 0)
         {
             // ファイルの終端へ達した場合
+            free(buff);
             return (str);
         }
         else if (buff_size == -1)
@@ -52,8 +53,8 @@ char    *get_next_line(int fd)
                 new_str[i] = str[i];
                 i++;
             }
-            free(str);
             str = new_str;
+            free(str);
             // 今回取得したデータも配列へコピー
             i = str_size;
             f = 0;
@@ -63,13 +64,16 @@ char    *get_next_line(int fd)
                 i++;
                 f++;
             }
+            free(buff);
             i = str_size;
             while (i < str_size + BUFFER_SIZE)
             {
                 // 改行文字を見つけたら
-                if(str[i] == '\0')
+                if(str[i] == '\n')
+                {
                     str[str_size + BUFFER_SIZE] = '\0';
                     return (str);
+                }
                 i++;
             }
         }
@@ -88,5 +92,5 @@ int main()
 
     fd = open("./textfile.txt", O_RDONLY);
     result = get_next_line(fd);
-    printf("[Result]\n-----\n%s-----", result);
+    printf("[Result]\n-----\n%s\n-----", result);
 }
