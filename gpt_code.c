@@ -1,10 +1,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#define BUFFER_SIZE 42 // 固定バッファサイズ
+#define BUFFER_SIZE 5 // 固定バッファサイズ
 
 // ファイルから1行ずつ読み取る関数
-char *read_line(int fd) {
+char *get_next_line(int fd) {
     static char *buffer = NULL;
     // 実際にreadで読み取った値を保持しておく変数
     static ssize_t buffer_size = 0;
@@ -75,4 +75,26 @@ char *read_line(int fd) {
         line[line_size] = '\0';
     }
     return line;
+}
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+int main()
+{
+    int     fd;
+    int     count;
+    char    *result;
+
+    fd = open("./textfile.txt", O_RDONLY);
+    count = 0;
+    printf("[Result]\n");
+    while (count < 2)
+    {
+        result = get_next_line(fd);
+        printf("\"%s\"\n", result);
+        count++;
+    }
 }
