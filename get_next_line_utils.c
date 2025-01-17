@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:43:59 by sbaba             #+#    #+#             */
-/*   Updated: 2025/01/16 16:55:53 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/01/17 21:18:54 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ size_t	ft_strlen(const	char *str)
 	return (len);
 }
 
-// 指定した文字が最初に現れる位置を返す
 char	*ft_strchr(const char *s, int c)
 {
 	const unsigned char	*bs;
 
+	if (!s)
+		return (NULL);
 	bs = (const unsigned char *)s;
 	while (*bs != '\0')
 	{
@@ -81,18 +82,20 @@ static size_t	ft_strcpy(char *dest, const char *src)
 	return (strlen);
 }
 
-// 2つの文字列を結合する
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	size_t		l1;
-	size_t		l2;
 	char		*result;
 
+	if (!s1)
+	{
+		s1 = (char *)malloc(sizeof(char));
+		if (!s1)
+			return (NULL);
+		s1[0] = '\0';
+	}
 	if (!s1 || !s2)
 		return (NULL);
-	l1 = ft_strlen(s1);
-	l2 = ft_strlen(s2);
-	result = (char *)malloc(l1 + l2 + 1);
+	result = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (result == NULL)
 		return (NULL);
 	ft_strcpy(result, s1);

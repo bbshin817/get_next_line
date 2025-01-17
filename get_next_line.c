@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:41:51 by sbaba             #+#    #+#             */
-/*   Updated: 2025/01/16 16:58:35 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/01/17 21:18:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,11 @@ char	*do_read(int fd, char *cache)
 	char	*tmp;
 	ssize_t	bytesize;
 
-	if (!cache)
-		cache = (char *)malloc(1);
-	if (!cache)
-		return (NULL);
-	cache[0] = '\0';
 	tmp = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!tmp)
 		return (NULL);
 	bytesize = 1;
-	while (!ft_strchr(cache, '\n') && 0 < bytesize)
+	while (!ft_strchr(cache, '\n') && 0 != bytesize)
 	{
 		bytesize = read(fd, tmp, BUFFER_SIZE);
 		if (-1 == bytesize)
@@ -60,7 +55,7 @@ char	*search_line(char *cache)
 		line[i] = cache[i];
 		i++;
 	}
-	if (cache[i] != '\n')
+	if (cache[i] == '\n')
 	{
 		line[i] = '\n';
 		i++;
@@ -86,8 +81,8 @@ char	*get_after_line_breaks(char *cache)
 	rest = (char *)malloc((ft_strlen(cache) - i + 1) * sizeof(char));
 	if (!rest)
 		return (NULL);
-	r = 0;
 	i++;
+	r = 0;
 	while (cache[i])
 		rest[r++] = cache[i++];
 	rest[r] = '\0';
@@ -108,24 +103,4 @@ char	*get_next_line(int fd)
 	line = search_line(cache);
 	cache = get_after_line_breaks(cache);
 	return (line);
-}
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdio.h>
-
-int main()
-{
-    int     fd;
-    char    *result;
-
-    fd = open("./textfile.txt", O_RDONLY);
-	result = "hello";
-	while (result)
-	{
-		result = get_next_line(fd);
-		if (result)
-			printf("\"%s\"\n", result);
-	}
 }
