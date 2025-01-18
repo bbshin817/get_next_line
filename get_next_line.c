@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:41:51 by sbaba             #+#    #+#             */
-/*   Updated: 2025/01/17 21:18:25 by user             ###   ########.fr       */
+/*   Updated: 2025/01/18 18:59:30 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*search_line(char *cache)
 		return (NULL);
 	while (cache[i] && cache[i] != '\n')
 		i++;
-	line = (char *)malloc((i + 2) * sizeof(char));
+	line = (char *)malloc((i + 1 + (cache[i] == '\n')) * sizeof(char));
 	if (!line)
 		return (NULL);
 	i = 0;
@@ -101,6 +101,28 @@ char	*get_next_line(int fd)
 	if (!cache)
 		return (NULL);
 	line = search_line(cache);
+	if (!line)
+		return (NULL);
 	cache = get_after_line_breaks(cache);
 	return (line);
+}
+
+#include <stdio.h>
+#include <fcntl.h>
+
+int main()
+{
+	int fd = open("./.txt", O_RDONLY);
+	char	*result;
+
+	result = "";
+	while (result)
+	{
+		result = get_next_line(fd);
+		if (result)
+		{
+			printf("%s", result);
+			free(result);
+		}
+	}
 }
