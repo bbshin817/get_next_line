@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:43:59 by sbaba             #+#    #+#             */
-/*   Updated: 2025/01/17 21:18:54 by user             ###   ########.fr       */
+/*   Updated: 2025/01/25 21:23:10 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,13 @@ char	*ft_strjoin(char *s1, char *s2)
 			return (NULL);
 		s1[0] = '\0';
 	}
-	if (!s1 || !s2)
+	if (!s2)
 		return (NULL);
 	result = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (result == NULL)
 		return (NULL);
 	ft_strcpy(result, s1);
 	ft_strcat(result, s2);
+	free(s1);
 	return (result);
 }

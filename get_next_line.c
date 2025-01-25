@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:41:51 by sbaba             #+#    #+#             */
-/*   Updated: 2025/01/18 18:59:30 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/01/25 21:26:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ char	*get_after_line_breaks(char *cache)
 	}
 	rest = (char *)malloc((ft_strlen(cache) - i + 1) * sizeof(char));
 	if (!rest)
+	{
+		free(rest);
 		return (NULL);
+	}
 	i++;
 	r = 0;
 	while (cache[i])
@@ -104,6 +107,8 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	cache = get_after_line_breaks(cache);
+	if (!cache)
+		free(cache);
 	return (line);
 }
 
