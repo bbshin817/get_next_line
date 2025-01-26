@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:43:59 by sbaba             #+#    #+#             */
-/*   Updated: 2025/01/17 21:18:54 by user             ###   ########.fr       */
+/*   Updated: 2025/01/24 17:45:02 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static size_t	ft_strcpy(char *dest, const char *src)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char		*result;
+	char	*result;
 
 	if (!s1)
 	{
