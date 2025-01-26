@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:41:51 by sbaba             #+#    #+#             */
-/*   Updated: 2025/01/26 14:24:16 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/01/26 21:46:43 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = search_line(cache);
 	if (!line)
+	{
+		free(cache);
 		return (NULL);
+	}
 	cache = get_after_line_breaks(cache);
 	if (!cache)
 		free(cache);
