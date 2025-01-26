@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:41:51 by sbaba             #+#    #+#             */
-/*   Updated: 2025/01/24 17:45:35 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/01/26 14:24:16 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ char	*get_after_line_breaks(char *cache)
 	}
 	rest = (char *)malloc((ft_strlen(cache) - i + 1) * sizeof(char));
 	if (!rest)
+	{
+		free(rest);
 		return (NULL);
+	}
 	i++;
 	r = 0;
 	while (cache[i])
@@ -104,5 +107,7 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	cache = get_after_line_breaks(cache);
+	if (!cache)
+		free(cache);
 	return (line);
 }
